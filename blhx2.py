@@ -47,15 +47,19 @@ def getenemy():
         return getenemy()
     el = mubanpipei.template_demo("elite")
     if  el!= (0,0):
+        print("elite")
         return (el[0],el[1]+80)
     el = mubanpipei.template_demo("elite2")
     if  el!= (0,0):
+        print("elite2")
         return (el[0],el[1]+80)
     el = mubanpipei.template_demo("elite3")
     if  el!= (0,0):
+        print("elite3")
         return (el[0],el[1]+80)
     el = mubanpipei.template_demo("elite4")
     if  el!= (0,0):
+        print("elite4")
         return (el[0],el[1]+80)
     xys = [mubanpipei.template_demo("hangkong"),mubanpipei.template_demo("yunshu"),mubanpipei.template_demo("zhencha"),mubanpipei.template_demo("zhuli")]
     for i in xys:
