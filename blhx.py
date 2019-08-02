@@ -25,7 +25,11 @@ def mouse_randmove():
     time.sleep(0.2)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 bossflag = 0
-
+def randomClick(index):
+    rx = randint(index[0],index[1])
+    ry = randint(index[2],index[3])
+    moveCurPos(rx,ry)
+    clickLeftCur()
 def getenemy():
     if mubanpipei.template_demo("map") == (0,0):
         return (1600,870)
@@ -98,6 +102,7 @@ while 1:
         moveCurPos(x,y)
         clickLeftCur()
         time.sleep(5)#试图交战
+    '''
     elif mubanpipei.template_demo("err1") != (0,0):#结算卡住
         moveCurPos(1000,150)
         clickLeftCur()
@@ -115,6 +120,7 @@ while 1:
         moveCurPos(1540,910)
         clickLeftCur()
         time.sleep(5)
+    '''
     elif mubanpipei.template_demo("task") != (0,0):#紧急委托
         moveCurPos(965,715)
         clickLeftCur()
