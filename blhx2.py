@@ -7,6 +7,7 @@ from PIL import ImageGrab
 import winsound,time
 import mubanpipei
 import getpic
+stateflag = [0]# 记录地图点击数量
 def clickLeftCur():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN|win32con.MOUSEEVENTF_LEFTUP, 0, 0)
 def getCurPos():
@@ -93,12 +94,14 @@ while 1:
         clickLeftCur()
         time.sleep(3)
     elif mubanpipei.template_demo("chujiqueren") != (0,0):#确认交战
+        stateflag[0] = 0
         winsound.Beep(900,500)
         #moveCurPos(1600,870)
         #clickLeftCur()
         randomClick((1520,850,1718,909))
         time.sleep(30)
     elif mubanpipei.template_demo("shengli") != (0,0):#确认胜利
+        stateflag[0] = 0
         moveCurPos(1000,150)
         clickLeftCur()
         time.sleep(2)
@@ -117,6 +120,10 @@ while 1:
         randomClick((1454,879,1643,940))
         time.sleep(5)
     elif mubanpipei.template_demo("map") != (0,0):#地图内，寻找敌人
+        stateflag[0] += 1
+        if stateflag[0] >= 5:
+            stateflag[0] = 0
+            mouse_randmove()
         winsound.Beep(700,500)
         x,y = getenemy()
         winsound.Beep(700,500)
