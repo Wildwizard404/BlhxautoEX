@@ -27,8 +27,8 @@ def mouse_randmove():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 bossflag = 0
 def randomClick(index):
-    rx = randint(index[0],index[1])
-    ry = randint(index[2],index[3])
+    rx = random.randint(index[0],index[2])
+    ry = random.randint(index[1],index[3])
     moveCurPos(rx,ry)
     clickLeftCur()
 def getenemy():
@@ -61,7 +61,7 @@ while 1:
     if mubanpipei.template_demo("worldmap") != (0,0):#进入关卡
         #moveCurPos(1430,770)
         #clickLeftCur()
-        randomClick((1267,412,1483,459))
+        randomClick((1135,405,1365,455))
         time.sleep(2)
         #moveCurPos(1380,700)
         #clickLeftCur()
@@ -76,7 +76,8 @@ while 1:
         print("进入关卡")
     elif mubanpipei.template_demo("fuji") != (0,0):#被伏击
         winsound.Beep(1000,500)
-        moveCurPos(1530,665)
+        print("被伏击了？？？")
+        moveCurPos(1622,666)
         clickLeftCur()
         time.sleep(3)
     elif mubanpipei.template_demo("chujiqueren") != (0,0):#确认交战
@@ -117,25 +118,7 @@ while 1:
         moveCurPos(x,y)
         clickLeftCur()
         time.sleep(5)#试图交战
-    '''
-    elif mubanpipei.template_demo("err1") != (0,0):#结算卡住
-        moveCurPos(1000,150)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        moveCurPos(1540,910)
-        clickLeftCur()
-        time.sleep(5)
-    '''
+        time.sleep(5)#试图交战
     elif mubanpipei.template_demo("task") != (0,0):#紧急委托
         moveCurPos(965,715)
         clickLeftCur()
