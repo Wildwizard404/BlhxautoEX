@@ -7,6 +7,7 @@ from PIL import ImageGrab
 import winsound,time
 import mubanpipei
 import getpic
+stateflag = [0]# 记录地图点击数量
 def clickLeftCur():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN|win32con.MOUSEEVENTF_LEFTUP, 0, 0)
 def getCurPos():
@@ -26,13 +27,13 @@ def mouse_randmove():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 bossflag = 0
 def randomClick(index):
-    rx = randint(index[0],index[1])
-    ry = randint(index[2],index[3])
+    rx = random.randint(index[0],index[2])
+    ry = random.randint(index[1],index[3])
     moveCurPos(rx,ry)
     clickLeftCur()
 def getenemy():
     if mubanpipei.template_demo("map") == (0,0):
-        return (1600,870)
+        return (1700,870)
     global bossflag
     getpic.getpic()
     xy = mubanpipei.template_demo("boss")
@@ -44,6 +45,7 @@ def getenemy():
         return xy
     elif bossflag == 1:
         mouse_randmove()
+        print("搜索BOSS")
         return getenemy()
     xys = [mubanpipei.template_demo("hangkong"),mubanpipei.template_demo("yunshu"),mubanpipei.template_demo("zhencha"),mubanpipei.template_demo("zhuli")]
     for i in xys:
@@ -57,28 +59,36 @@ winsound.Beep(600,500)
 while 1:
     getpic.getpic()
     if mubanpipei.template_demo("worldmap") != (0,0):#进入关卡
-        moveCurPos(1430,770)
-        clickLeftCur()
+        #moveCurPos(1430,770)
+        #clickLeftCur()
+        randomClick((1400,720,1480,760))
         time.sleep(2)
-        moveCurPos(1380,700)
-        clickLeftCur()
+        #moveCurPos(1380,700)
+        #clickLeftCur()
+        randomClick((1277,695,1494,754))
         time.sleep(2)
-        moveCurPos(1550,850)
-        clickLeftCur()
+        #moveCurPos(1550,850)
+        #clickLeftCur()
+        randomClick((1420,800,1670,870))
         time.sleep(5)
         bossflag = 0
-        winsound.Beep(600,500)
+        winsound.Beep(400,500)
+        print("进入关卡")
     elif mubanpipei.template_demo("fuji") != (0,0):#被伏击
         winsound.Beep(1000,500)
-        moveCurPos(1530,665)
+        print("被伏击了？？？")
+        moveCurPos(1622,666)
         clickLeftCur()
         time.sleep(3)
     elif mubanpipei.template_demo("chujiqueren") != (0,0):#确认交战
+        stateflag[0] = 0
         winsound.Beep(900,500)
-        moveCurPos(1600,870)
-        clickLeftCur()
+        #moveCurPos(1600,870)
+        #clickLeftCur()
+        randomClick((1620,860,1840,890))
         time.sleep(30)
     elif mubanpipei.template_demo("shengli") != (0,0):#确认胜利
+        stateflag[0] = 0
         moveCurPos(1000,150)
         clickLeftCur()
         time.sleep(2)
@@ -92,35 +102,23 @@ while 1:
         time.sleep(2)
         clickLeftCur()
         time.sleep(2)
-        moveCurPos(1540,910)
-        clickLeftCur()
+        #moveCurPos(1540,910)
+        #clickLeftCur()
+        randomClick((1454,880,1643,940))
         time.sleep(5)
     elif mubanpipei.template_demo("map") != (0,0):#地图内，寻找敌人
+        stateflag[0] += 1
+        if stateflag[0] >= 5:
+            stateflag[0] = 0
+            mouse_randmove()
+            print("卡住了，移动地图")
         winsound.Beep(700,500)
         x,y = getenemy()
         winsound.Beep(700,500)
         moveCurPos(x,y)
         clickLeftCur()
         time.sleep(5)#试图交战
-    '''
-    elif mubanpipei.template_demo("err1") != (0,0):#结算卡住
-        moveCurPos(1000,150)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        moveCurPos(1540,910)
-        clickLeftCur()
-        time.sleep(5)
-    '''
+        time.sleep(5)#试图交战
     elif mubanpipei.template_demo("task") != (0,0):#紧急委托
         moveCurPos(965,715)
         clickLeftCur()
