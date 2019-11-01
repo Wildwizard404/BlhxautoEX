@@ -13,17 +13,13 @@ def clickLeftCur():
 def getCurPos():
     return win32gui.GetCursorPos()
 def moveCurPos(x,y):
-    if y>= 887:
-        mouse_randmove()
-        getenemy()
-        return
     windll.user32.SetCursorPos(x, y)
 def mouse_randmove():
     windll.user32.SetCursorPos(960, 540)    #鼠标移动到  
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)    #左键按下
     time.sleep(0.2)
-    x = 960+random.randint(200,300)*(-1)**random.randint(1,3)
-    y = 540+random.randint(200,300)*(-1)**random.randint(1,2)
+    x = 960+random.randint(200,300)*(-1)**random.randint(1,2)
+    y = 540+random.randint(200,300)*(-1)**random.randint(2,4)
     mw = int(x * 65535 / 1920) 
     mh = int(y * 65535 / 1080)
     win32api.mouse_event(win32con.MOUSEEVENTF_ABSOLUTE + win32con.MOUSEEVENTF_MOVE, mw, mh, 0, 0)    
@@ -43,8 +39,7 @@ def getenemy():
     xy = mubanpipei.template_demo("boss")
     if xy != (0,0):
         if bossflag == 0:
-            windll.user32.SetCursorPos(1500,940)
-            #moveCurPos(1500,940)
+            moveCurPos(1500,940)
             clickLeftCur()
         bossflag = 1
         return xy
@@ -52,26 +47,16 @@ def getenemy():
         mouse_randmove()
         print("搜索BOSS")
         return getenemy()
-    el = mubanpipei.template_demo("elite")
-    if  el!= (0,0):
-        print("elite")
-        return (el[0],el[1]+80)
-    el = mubanpipei.template_demo("elite2")
-    if  el!= (0,0):
-        print("elite2")
-        return (el[0],el[1]+80)
-    el = mubanpipei.template_demo("elite3")
-    if  el!= (0,0):
-        print("elite3")
-        return (el[0],el[1]+80)
-    el = mubanpipei.template_demo("elite4")
-    if  el!= (0,0):
-        print("elite4")
-        return (el[0],el[1]+90)
-        el = mubanpipei.template_demo("elite5")
-    if  el!= (0,0):
-        print("elite5")
-        return (el[0],el[1]+90)
+    elif bossflag == 1:
+        mouse_randmove()
+        print("搜索BOSS")
+        return getenemy()
+    els = ["elite","elite2","elite3","elite4"]
+    for el in els:
+        elf = mubanpipei.template_demo(el)
+        if  elf != (0,0):
+            print(el)
+            return (elf[0],elf[1]+80)
     xys = [mubanpipei.template_demo("hangkong"),mubanpipei.template_demo("yunshu"),mubanpipei.template_demo("zhencha"),mubanpipei.template_demo("zhuli")]
     for i in xys:
         if i != (0,0):
@@ -81,37 +66,30 @@ def getenemy():
 time.sleep(3)
 winsound.Beep(600,500)
 winsound.Beep(600,500)
+print("                start！")
 while 1:
     getpic.getpic()
+    print("                run!")
     if mubanpipei.template_demo("worldmap2") != (0,0):#进入关卡
-        #moveCurPos(1430,770)
-        #clickLeftCur()
-        randomClick((1252,410,1550,455))
+        randomClick((943,537,1191,583))
         time.sleep(2)
-        #moveCurPos(1380,700)
-        #clickLeftCur()
         randomClick((1277,695,1494,754))
         time.sleep(2)
-        #moveCurPos(1550,850)
-        #clickLeftCur()
         randomClick((1420,800,1670,870))
         time.sleep(5)
         bossflag = 0
         winsound.Beep(400,500)
         print("进入关卡")
-    elif mubanpipei.template_demo("fuji") != (0,0):#被伏击
-        winsound.Beep(1000,500)
-        moveCurPos(1530,665)
-        clickLeftCur()
-        time.sleep(3)
     elif mubanpipei.template_demo("chujiqueren") != (0,0):#确认交战
+        print("确认交战")
         stateflag[0] = 0
         winsound.Beep(900,500)
         #moveCurPos(1600,870)
         #clickLeftCur()
         randomClick((1620,860,1840,890))
-        time.sleep(30)
+        time.sleep(10)
     elif mubanpipei.template_demo("shengli") != (0,0):#确认胜利
+        print("确认胜利")
         stateflag[0] = 0
         moveCurPos(1000,150)
         clickLeftCur()
@@ -128,9 +106,10 @@ while 1:
         time.sleep(2)
         #moveCurPos(1540,910)
         #clickLeftCur()
-        randomClick((1454,872,1643,886))
+        randomClick((1454,880,1643,940))
         time.sleep(5)
     elif mubanpipei.template_demo("map") != (0,0):#地图内，寻找敌人
+        print("索敌")
         stateflag[0] += 1
         if stateflag[0] >= 5:
             stateflag[0] = 0
@@ -142,31 +121,13 @@ while 1:
         moveCurPos(x,y)
         clickLeftCur()
         time.sleep(5)#试图交战
-    elif mubanpipei.template_demo("err1") != (0,0):#结算卡住
-        moveCurPos(1000,150)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        clickLeftCur()
-        time.sleep(2)
-        moveCurPos(1540,910)
-        clickLeftCur()
-        time.sleep(5)
+        time.sleep(5)#试图交战
     elif mubanpipei.template_demo("task") != (0,0):#紧急委托
+        print("委托")
         moveCurPos(965,715)
         clickLeftCur()
         time.sleep(2)
-    elif mubanpipei.template_demo("yingyuan") != (0,0):#应援
-        moveCurPos(765,715)
-        clickLeftCur()
-        time.sleep(2)
+
 
 #winsound.Beep(600,500)
 #winsound.Beep(600,500)

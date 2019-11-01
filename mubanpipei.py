@@ -159,6 +159,7 @@ def template_demo(n):
         n = classify_hist_with_split(img1, img2)
         #print('三直方图算法相似度：', n)
         if n>=0.65:
+            cv2.imwrite("template/target2.png",img2)
             return((int((tl[0]+br[0])/2),int((tl[1]+br[1])/2)))
         else:
             return((0,0))

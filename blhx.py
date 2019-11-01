@@ -56,19 +56,18 @@ def getenemy():
 time.sleep(3)
 winsound.Beep(600,500)
 winsound.Beep(600,500)
+print("                start！")
 while 1:
     getpic.getpic()
+    print("                run!")
     if mubanpipei.template_demo("worldmap") != (0,0):#进入关卡
-        #moveCurPos(1430,770)
-        #clickLeftCur()
-        randomClick((1400,720,1480,760))
+        #randomClick((1400,720,1480,760)) # 13-4
+        #randomClick((709,294,973,351)) # 7-2
+        #randomClick((1095,387,1319,430)) # 10-4
+        randomClick((1380,734,1646,782)) # 12-4
         time.sleep(2)
-        #moveCurPos(1380,700)
-        #clickLeftCur()
         randomClick((1277,695,1494,754))
         time.sleep(2)
-        #moveCurPos(1550,850)
-        #clickLeftCur()
         randomClick((1420,800,1670,870))
         time.sleep(5)
         bossflag = 0
@@ -81,13 +80,15 @@ while 1:
         clickLeftCur()
         time.sleep(3)
     elif mubanpipei.template_demo("chujiqueren") != (0,0):#确认交战
+        print("确认交战")
         stateflag[0] = 0
         winsound.Beep(900,500)
         #moveCurPos(1600,870)
         #clickLeftCur()
         randomClick((1620,860,1840,890))
-        time.sleep(30)
+        time.sleep(10)
     elif mubanpipei.template_demo("shengli") != (0,0):#确认胜利
+        print("确认胜利")
         stateflag[0] = 0
         moveCurPos(1000,150)
         clickLeftCur()
@@ -107,6 +108,7 @@ while 1:
         randomClick((1454,880,1643,940))
         time.sleep(5)
     elif mubanpipei.template_demo("map") != (0,0):#地图内，寻找敌人
+        print("索敌")
         stateflag[0] += 1
         if stateflag[0] >= 5:
             stateflag[0] = 0
@@ -120,7 +122,13 @@ while 1:
         time.sleep(5)#试图交战
         time.sleep(5)#试图交战
     elif mubanpipei.template_demo("task") != (0,0):#紧急委托
+        print("委托")
         moveCurPos(965,715)
+        clickLeftCur()
+        time.sleep(2)
+    elif mubanpipei.template_demo("yingyuan") != (0,0):#应援
+        print("应援")
+        moveCurPos(765,715)
         clickLeftCur()
         time.sleep(2)
 
